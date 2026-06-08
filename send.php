@@ -29,8 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   "Terminwunsch: $date\n\n" .
                   "Nachricht:\n$message";
     
-    $headers_owner = "From: $site_name <noreply@deinedomain.de>\r\n";
-    $headers_owner .= "Reply-To: $email";
+    // WICHTIG: Die "From"-Adresse sollte eine E-Mail deiner Domain sein, 
+    // damit die Mail nicht als Spam abgelehnt wird.
+    $headers_owner = "From: " . $site_name . " <noreply@" . $_SERVER['HTTP_HOST'] . ">\r\n";
+    $headers_owner .= "Reply-To: $email\r\n";
+    $headers_owner .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    $headers_owner .= "X-Mailer: PHP/" . phpversion();
 
     $mail_to_owner = mail($my_email, $subject_owner, $body_owner, $headers_owner);
 
