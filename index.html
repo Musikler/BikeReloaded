@@ -53,15 +53,14 @@
             <h2>Termin vereinbaren</h2>
             <p>Gib deinem Bike einen neuen Look. Fülle das Formular aus und wir melden uns bei dir!</p>
             
-            <!-- Nutzung von FormSubmit.co (Kostenloser Autoresponder inklusive) -->
-            <form id="contact-form" action="https://formsubmit.co/ajax/jan.wersching75@gmail.com" method="POST">
+            <form id="contact-form" action="https://formsubmit.co/jan.wersching75@gmail.com" method="POST">
                 <!-- Konfiguration -->
                 <input type="hidden" name="_subject" value="Neue Terminanfrage: Bike Reloaded">
                 <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://musikler.github.io/BikeReloaded/#thanks">
                 
                 <!-- AUTO-REPLY AN DEN KUNDEN -->
-                <input type="hidden" name="_autoresponder" value="Vielen Dank für deine Anfrage bei Bike Reloaded! Wir haben deine Nachricht erhalten und prüfen deinen Terminwunsch. Wir melden uns in Kürze bei dir, um dein Bike-Projekt zu besprechen. Bunte Grüße, dein Team von Bike Reloaded.">
+                <input type="hidden" name="_autoresponse" value="Vielen Dank für deine Anfrage bei Bike Reloaded! Wir haben deine Nachricht erhalten und prüfen deinen Terminwunsch. Wir melden uns in Kürze bei dir, um dein Bike-Projekt zu besprechen. Bunte Grüße, dein Team von Bike Reloaded.">
 
                 <div class="form-group">
                     <label for="name">Name</label>
@@ -99,46 +98,24 @@
                 <p><strong>Bike Reloaded</strong></p>
                 <p>Hornstein, Burgenland</p>
                 <div class="social-splatter"></div>
-                <p class="copy">&copy; 2026 Bike Reloaded. Alle Rechte vorbehalten. web patch 8</p>
+                <p class="copy">&copy; 2026 Bike Reloaded. Alle Rechte vorbehalten. web patch 10</p>
             </div>
         </div>
     </footer>
 
     <script>
-        const form = document.getElementById('contact-form');
-        
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const button = form.querySelector('.btn-submit');
-            const originalText = button.innerText;
-            button.innerText = "Wird gesendet...";
-            button.style.opacity = "0.7";
-
-            fetch(form.action, {
-                method: 'POST',
-                body: new FormData(form),
-                headers: { 
-                    'Accept': 'application/json'
-                }
-            }).then(response => {
-                return response.json();
-            }).then(data => {
-                // FormSubmit gibt 'success': 'true' zurück
-                if (data.success === "true" || data.success === true) {
-                    form.innerHTML = `<div style="text-align:center; padding: 20px;">
-                        <h2 style="color:var(--green); font-size: 3rem;">✓ LACKIERT!</h2>
-                        <p>Vielen Dank! Deine Anfrage wurde übermittelt. Check auch dein Postfach für die Bestätigung!</p>
-                    </div>`;
-                } else {
-                    throw new Error(data.message || 'Fehler beim Senden');
-                }
-            }).catch(error => {
-                console.error(error);
-                alert('Hoppla! Da gab es ein Problem. Hast du den Access Key eingetragen?');
-                button.innerText = originalText;
-                button.style.opacity = "1";
-            });
-        });
+        // Prüfen, ob wir gerade von einem erfolgreichen Absenden kommen
+        if (window.location.hash === '#thanks') {
+            const formContainer = document.getElementById('termin');
+            if (formContainer) {
+                formContainer.innerHTML = `<div class="container" style="text-align:center; padding: 60px 20px;">
+                    <h2 style="color:var(--green); font-size: 3rem; font-family: 'Permanent Marker', cursive;">✓ LACKIERT!</h2>
+                    <p style="font-size: 1.2rem; margin-top: 20px;">Vielen Dank! Deine Anfrage wurde übermittelt. Check auch dein Postfach (und den Spam-Ordner) für die Bestätigung!</p>
+                    <a href="index.html" class="btn" style="margin-top: 30px;">Zurück zum Start</a>
+                </div>`;
+                formContainer.scrollIntoView();
+            }
+        }
 
         // Reveal Animation on Scroll: Aktiviert die Sektionen beim Scrollen
         const observerOptions = { threshold: 0.15 };
