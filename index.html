@@ -53,7 +53,16 @@
             <h2>Termin vereinbaren</h2>
             <p>Gib deinem Bike einen neuen Look. Fülle das Formular aus und wir melden uns bei dir!</p>
             
-            <form id="contact-form" action="send.php" method="POST">
+            <!-- Nutzung von FormSubmit.co (Kostenloser Autoresponder inklusive) -->
+            <form id="contact-form" action="https://formsubmit.co/ajax/jan.wersching75@gmail.com" method="POST">
+                <!-- Konfiguration -->
+                <input type="hidden" name="_subject" value="Neue Terminanfrage: Bike Reloaded">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
+                
+                <!-- AUTO-REPLY AN DEN KUNDEN -->
+                <input type="hidden" name="_autoresponder" value="Vielen Dank für deine Anfrage bei Bike Reloaded! Wir haben deine Nachricht erhalten und prüfen deinen Terminwunsch. Wir melden uns in Kürze bei dir, um dein Bike-Projekt zu besprechen. Bunte Grüße, dein Team von Bike Reloaded.">
+
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required placeholder="Dein Name">
@@ -90,7 +99,7 @@
                 <p><strong>Bike Reloaded</strong></p>
                 <p>Hornstein, Burgenland</p>
                 <div class="social-splatter"></div>
-                <p class="copy">&copy; 2026 Bike Reloaded. Alle Rechte vorbehalten. web patch 6</p>
+                <p class="copy">&copy; 2026 Bike Reloaded. Alle Rechte vorbehalten. web patch 8</p>
             </div>
         </div>
     </footer>
@@ -108,18 +117,26 @@
             fetch(form.action, {
                 method: 'POST',
                 body: new FormData(form),
-                headers: { 'Accept': 'application/json' }
+                headers: { 
+                    'Accept': 'application/json'
+                }
             }).then(response => {
-                if (response.ok) {
+                return response.json();
+            }).then(data => {
+                // FormSubmit gibt 'success': 'true' zurück
+                if (data.success === "true" || data.success === true) {
                     form.innerHTML = `<div style="text-align:center; padding: 20px;">
-                        <h2 style="color:var(--green)">✓ Gesendet!</h2>
-                        <p>Vielen Dank! Wir haben deine Anfrage erhalten und senden dir in Kürze eine Bestätigung.</p>
+                        <h2 style="color:var(--green); font-size: 3rem;">✓ LACKIERT!</h2>
+                        <p>Vielen Dank! Deine Anfrage wurde übermittelt. Check auch dein Postfach für die Bestätigung!</p>
                     </div>`;
                 } else {
-                    alert('Hoppla! Da gab es ein Problem. Bitte versuche es später noch einmal.');
-                    button.innerText = originalText;
-                    button.style.opacity = "1";
+                    throw new Error(data.message || 'Fehler beim Senden');
                 }
+            }).catch(error => {
+                console.error(error);
+                alert('Hoppla! Da gab es ein Problem. Hast du den Access Key eingetragen?');
+                button.innerText = originalText;
+                button.style.opacity = "1";
             });
         });
 
