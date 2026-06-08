@@ -53,8 +53,7 @@
             <h2>Termin vereinbaren</h2>
             <p>Gib deinem Bike einen neuen Look. Fülle das Formular aus und wir melden uns bei dir!</p>
             
-            <!-- Ersetze XXXXX durch deine Formspree-ID -->
-            <form id="contact-form" action="https://formspree.io/f/mnjydryr" method="POST">
+            <form id="contact-form" action="send.php" method="POST">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required placeholder="Dein Name">
@@ -91,29 +90,37 @@
                 <p><strong>Bike Reloaded</strong></p>
                 <p>Hornstein, Burgenland</p>
                 <div class="social-splatter"></div>
-                <p class="copy">&copy; 2026 Bike Reloaded. Alle Rechte vorbehalten. web patch 2</p>
+                <p class="copy">&copy; 2026 Bike Reloaded. Alle Rechte vorbehalten. web patch 4</p>
             </div>
         </div>
     </footer>
 
     <script>
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            // Wenn du Formspree nutzt, kannst du das Formular normal absenden lassen.
-            // Optional: Hier eine AJAX-Lösung, damit die Seite nicht neu lädt:
-            /*
+        const form = document.getElementById('contact-form');
+        
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
-            fetch(e.target.action, {
+            const button = form.querySelector('.btn-submit');
+            const originalText = button.innerText;
+            button.innerText = "Wird gesendet...";
+            button.style.opacity = "0.7";
+
+            fetch(form.action, {
                 method: 'POST',
-                body: new FormData(e.target),
+                body: new FormData(form),
                 headers: { 'Accept': 'application/json' }
             }).then(response => {
                 if (response.ok) {
-                    alert('Vielen Dank! Deine Anfrage wurde erfolgreich gesendet.');
-                    e.target.reset();
+                    form.innerHTML = `<div style="text-align:center; padding: 20px;">
+                        <h2 style="color:var(--green)">✓ Gesendet!</h2>
+                        <p>Vielen Dank! Wir haben deine Anfrage erhalten und senden dir in Kürze eine Bestätigung.</p>
+                    </div>`;
                 } else {
-                    alert('Hoppla! Da gab es ein Problem beim Senden.');
+                    alert('Hoppla! Da gab es ein Problem. Bitte versuche es später noch einmal.');
+                    button.innerText = originalText;
+                    button.style.opacity = "1";
                 }
-            }); */
+            });
         });
     </script>
 </body>

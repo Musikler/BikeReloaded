@@ -1,11 +1,12 @@
 :root {
     --bg-color: #0b0b0b;
+    --bg-accent: #121212;
     --text-color: #ffffff;
-    --pink: #ff007f;
-    --blue: #00d4ff;
-    --yellow: #ffee00;
-    --green: #39ff14;
-    --card-bg: #1a1a1a;
+    --pink: #ff007f;   /* Neon Pink */
+    --blue: #00d4ff;   /* Cyber Blue */
+    --yellow: #ffee00; /* Electric Yellow */
+    --green: #39ff14;  /* Poison Green */
+    --card-bg: rgba(26, 26, 26, 0.8);
 }
 
 * {
@@ -17,9 +18,12 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: var(--bg-color);
+    background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #0b0b0b 100%);
     color: var(--text-color);
     line-height: 1.6;
     overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
 }
 
 h1, h2, h3, .btn {
@@ -40,11 +44,11 @@ header {
 
 .main-logo {
     max-width: 250px;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+    filter: drop-shadow(0 0 15px rgba(255, 0, 127, 0.4));
 }
 
 .hero {
-    height: 60vh;
+    height: 80vh;
     background-size: cover;
     background-position: center;
     display: flex;
@@ -55,9 +59,10 @@ header {
 }
 
 .hero-content h1 {
-    font-size: 3.5rem;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
     margin-bottom: 10px;
-    text-shadow: 3px 3px 0px var(--pink);
+    line-height: 1.1;
+    text-shadow: 4px 4px 0px var(--pink), 0 0 20px rgba(255, 0, 127, 0.5);
 }
 
 .highlight {
@@ -76,10 +81,12 @@ header {
     transition: transform 0.3s, box-shadow 0.3s;
     border: none;
     cursor: pointer;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(255, 0, 127, 0.3);
 }
 
 .btn:hover {
-    transform: scale(1.05) rotate(-2deg);
+    transform: scale(1.05) rotate(-1deg);
     box-shadow: 0 0 20px var(--pink);
 }
 
@@ -95,10 +102,18 @@ header {
 
 .service-card {
     background: var(--card-bg);
-    padding: 30px;
+    padding: 40px 30px;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 20px;
     border-bottom: 4px solid var(--yellow);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--yellow);
 }
 
 .icon { font-size: 3rem; margin-bottom: 15px; }
@@ -107,9 +122,17 @@ header {
 .blue { color: var(--blue); }
 .green { color: var(--green); }
 
+/* Modern Reveal Effect */
+section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+section.visible { opacity: 1; transform: translateY(0); }
+
 .appointment-section {
     padding: 80px 0;
-    background: #111;
+    background: var(--bg-accent);
 }
 
 .appointment-section h2 {
@@ -117,37 +140,45 @@ header {
     font-size: 2.5rem;
     color: var(--blue);
     margin-bottom: 40px;
+    text-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
 }
 
 form {
     max-width: 600px;
     margin: 0 auto;
-    background: var(--card-bg);
+    background: rgba(20, 20, 20, 0.9);
     padding: 40px;
-    border-radius: 15px;
-    border: 2px solid #333;
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
 .form-group { margin-bottom: 20px; }
 
-label { display: block; margin-bottom: 5px; color: #ccc; }
+label { display: block; margin-bottom: 8px; color: #aaa; font-size: 0.9rem; font-weight: bold; text-transform: uppercase; }
 
 input, select, textarea {
     width: 100%;
-    padding: 12px;
+    padding: 15px;
     background: #2a2a2a;
-    border: 1px solid #444;
+    border: 2px solid transparent;
     color: white;
-    border-radius: 5px;
+    border-radius: 10px;
+    transition: border-color 0.3s, background 0.3s;
 }
 
-input:focus { border-color: var(--green); outline: none; }
+input:focus, select:focus, textarea:focus { 
+    border-color: var(--green); 
+    background: #333;
+    outline: none; 
+}
 
 .btn-submit {
     width: 100%;
     background: var(--green);
     color: #000;
     font-weight: bold;
+    font-size: 1.2rem;
 }
 
 footer {
