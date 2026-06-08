@@ -90,7 +90,7 @@
                 <p><strong>Bike Reloaded</strong></p>
                 <p>Hornstein, Burgenland</p>
                 <div class="social-splatter"></div>
-                <p class="copy">&copy; 2026 Bike Reloaded. Alle Rechte vorbehalten. web patch 4</p>
+                <p class="copy">&copy; 2026 Bike Reloaded. Alle Rechte vorbehalten. web patch 5</p>
             </div>
         </div>
     </footer>
@@ -121,6 +121,20 @@
                     button.style.opacity = "1";
                 }
             });
+        });
+
+        // Reveal Animation on Scroll: Aktiviert die Sektionen beim Scrollen
+        const observerOptions = { threshold: 0.15 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
         });
     </script>
 </body>
