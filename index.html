@@ -53,7 +53,8 @@
             <h2>Termin vereinbaren</h2>
             <p>Gib deinem Bike einen neuen Look. Fülle das Formular aus und wir melden uns bei dir!</p>
             
-            <form id="contact-form">
+            <!-- Ersetze XXXXX durch deine Formspree-ID -->
+            <form id="contact-form" action="https://formspree.io/f/mnjydryr" method="POST">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required placeholder="Dein Name">
@@ -90,15 +91,29 @@
                 <p><strong>Bike Reloaded</strong></p>
                 <p>Hornstein, Burgenland</p>
                 <div class="social-splatter"></div>
-                <p class="copy">&copy; 2023 Bike Reloaded. Alle Rechte vorbehalten.</p>
+                <p class="copy">&copy; 2026 Bike Reloaded. Alle Rechte vorbehalten. web patch 2</p>
             </div>
         </div>
     </footer>
 
     <script>
         document.getElementById('contact-form').addEventListener('submit', function(e) {
+            // Wenn du Formspree nutzt, kannst du das Formular normal absenden lassen.
+            // Optional: Hier eine AJAX-Lösung, damit die Seite nicht neu lädt:
+            /*
             e.preventDefault();
-            alert('Vielen Dank! Wir haben deine Anfrage erhalten und melden uns in Kürze.');
+            fetch(e.target.action, {
+                method: 'POST',
+                body: new FormData(e.target),
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    alert('Vielen Dank! Deine Anfrage wurde erfolgreich gesendet.');
+                    e.target.reset();
+                } else {
+                    alert('Hoppla! Da gab es ein Problem beim Senden.');
+                }
+            }); */
         });
     </script>
 </body>
