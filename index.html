@@ -51,7 +51,7 @@
     <section id="termin" class="appointment-section">
         <div class="container">
             <h2>Termin vereinbaren</h2>
-            <p>Gib deinem Bike einen neuen Look. Fülle das Formular aus und wir melden uns bei dir!</p>
+            <h3>Gib deinem Bike einen neuen Look. Fülle das Formular aus und wir melden uns bei dir!</h3>
             
             <form id="contact-form" action="https://formsubmit.co/jan.wersching75@gmail.com" method="POST">
                 <!-- Konfiguration -->
@@ -64,28 +64,28 @@
 
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required placeholder="Dein Name">
+                    <input type="text" id="name" name="Vor- und Nachname" required placeholder="Dein Name">
                 </div>
                 <div class="form-group">
                     <label for="email">E-Mail</label>
-                    <input type="email" id="email" name="email" required placeholder="Deine E-Mail-Adresse">
+                    <input type="email" id="email" name="E-Mail" required placeholder="Deine E-Mail-Adresse">
                 </div>
                 <div class="form-group">
                     <label for="bike">Fahrrad-Typ</label>
-                    <select id="bike" name="bike">
+                    <select id="bike" name="Fahrrad-Typ">
                         <option value="mtb">Mountainbike</option>
                         <option value="road">Rennrad</option>
-                        <option value="city">City / E-Bike</option>
+                        <option value="city">City</option>
                         <option value="other">Sonstiges</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="date">Wunschtermin</label>
-                    <input type="date" id="date" name="date">
+                    <input type="date" id="date" name="Datum">
                 </div>
                 <div class="form-group">
                     <label for="message">Wunschfarbe / Details</label>
-                    <textarea id="message" name="message" rows="4" placeholder="Beschreibe kurz dein Projekt..."></textarea>
+                    <textarea id="message" name="Weitere Informationen" rows="4" placeholder="Beschreibe kurz dein Projekt..."></textarea>
                 </div>
                 <button type="submit" class="btn btn-submit">Anfrage absenden</button>
             </form>
